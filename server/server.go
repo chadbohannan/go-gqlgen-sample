@@ -11,11 +11,6 @@ import (
 
 const defaultPort = "8080"
 
-var stringList = []string{
-	"first string",
-	"second string",
-}
-
 func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -30,9 +25,7 @@ func main() {
 		handler.GraphQL(
 			go_gqlgen_sample.NewExecutableSchema(
 				go_gqlgen_sample.Config{
-					Resolvers: &go_gqlgen_sample.Resolver{
-						Data: stringList,
-					},
+					Resolvers: &go_gqlgen_sample.Resolver{},
 				},
 			),
 		),

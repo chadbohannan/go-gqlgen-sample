@@ -31,4 +31,4 @@ can fill a vendor directory with our dependencies:
 ```
 $ go mod vendor
 ```
-Which creates 
+Which creates the vendor subdirectory and fills it with delicious code units.

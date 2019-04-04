@@ -1,0 +1,13 @@
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+  - gql.article # first GQL file does not extend Query or Mutation
+  - gql.user    # following files do extend Query and Mutation
+exec:
+  filename: generated.go
+model:
+  filename: models_gen.go
+resolver:
+  filename: resolver.go
+  type: Resolver

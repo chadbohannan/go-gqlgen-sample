@@ -1,6 +1,6 @@
 
 type User {
-  id:   ID!
+  id:   Int!
   name: String! # required
 }
 
@@ -14,5 +14,5 @@ input NewUser {
 }
 
 extend type Mutation {
-  newUser(input: NewUser!): Int!
+  newUser(input: NewUser!): User!
 }

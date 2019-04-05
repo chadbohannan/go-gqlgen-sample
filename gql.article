@@ -3,9 +3,15 @@
 # https://gqlgen.com/getting-started/
 
 type Article {
-  id: ID! # ! means required
+  id: Int! # ! means required
   text: String!
   userID: Int!
+}
+
+type ArticleResponse {
+  id: Int! # ! means required
+  text: String!
+  user: User!
 }
 
 type Query {
@@ -13,17 +19,24 @@ type Query {
   article(id: Int): Article!
 }
 
+# You complete this tutorial when you create a new Article.
+# NewArticle is different because the client does not set the id of
+# of the new entity. A consequence of using GQL is that there are at
+# least 3 schemas for data: the database, the primary model, and at
+# least one mutation model like this.
 input NewArticle {
-  text: String!
-  userID: Int!
+  text: String! # content is required
+  userID: Int!  # userID is required
 }
 
+# If you are feeling brave you should compose a new GQL query to
+# modify the Article you created.
 input EditArticle {
   id: Int!
   text: String!
 }
 
 type Mutation {
-  newArticle(input: NewArticle!): Int!
-  setArticleText(input: EditArticle!): User!
+  newArticle(input: NewArticle!): ArticleResponse!
+  setArticleText(input: EditArticle!): ArticleResponse!
 }

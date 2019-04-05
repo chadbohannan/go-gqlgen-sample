@@ -123,3 +123,37 @@ You should now have output that looks like:
 
 You have now been introduced to everything you need to create new mutation query.
 Try changing the text of the article text to anything you want it to be.
+
+
+Inspect your work with these simple queries:
+```
+query {
+  articles {
+    id
+    text
+    user {
+      ...
+    }
+  }
+}
+```
+
+```
+query {
+  article(id:0) {
+    text
+    user {
+      id
+      name
+    }
+  }
+}
+```
+
+```
+query {
+  user(id: 0) {
+    name
+  }
+}
+```

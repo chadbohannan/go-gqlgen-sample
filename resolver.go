@@ -62,24 +62,34 @@ func (r *mutationResolver) NewUser(ctx context.Context, input NewUser) (*User, e
 
 type queryResolver struct{ *Resolver }
 
-// Articles returns a list of literals, not pointers, so we need to make a deep copy
-// the return signature is dictated by generated code; it's best not to fight it
-func (r *queryResolver) Articles(ctx context.Context) ([]Article, error) {
-	var response []Article
+func (r *queryResolver) Articles(ctx context.Context) ([]ArticleResponse, error) {
+	var response []ArticleResponse
 	for _, article := range articles {
-		response = append(response, *article)
+		r := ArticleResponse{
+			ID:   article.ID,
+			Text: article.Text,
+			User: *users[article.UserID],
+		}
+		response = append(response, r)
 	}
 	return response, nil
 }
 
-func (r *queryResolver) Article(ctx context.Context, id *int) (*Article, error) {
+func (r *queryResolver) Article(ctx context.Context, id *int) (*ArticleResponse, error) {
 	if *id < 0 || *id >= len(articles) {
 		return nil, errors.New("index out of bounds")
 	}
-	return articles[*id], nil
+	article := articles[*id]
+	response := &ArticleResponse{
+		ID:   article.ID,
+		Text: article.Text,
+		User: *users[article.UserID],
+	}
+	return response, nil
 }
 
 // Users returns a list of literals, not pointers, so we need to make a deep copy
+// the return signature is dictated by generated code; it's best not to fight it
 func (r *queryResolver) Users(ctx context.Context) ([]User, error) {
 	var response []User
 	for _, user := range users {
